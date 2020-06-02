@@ -27,4 +27,4 @@ elsif operator == '2'
     result = number1.to_f / number2.to_f
 end
 
-Kernel.puts("The result is #{result}") dfs
+Kernel.puts("The result is #{result}") 
