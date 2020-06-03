@@ -6,35 +6,55 @@
 # answer = Kernel.gets()
 # Kernel.puts(answer)
 
+LANGUAGE = 'en'
+
+require 'yaml'
+MESSAGES = YAML.load_file('calculator_messages.yml')
+
+def messages(message, lang='en')
+  MESSAGES[lang][message]
+end
+
+puts MESSAGES.inspect
+
 def prompt(message)
   Kernel.puts("=> #{message}")
 end
 
-def valid_number?(num)
-  num.to_i != 0
+def integer?(input)
+  input.to_i.to_s == input
+end
+
+def float?(input)
+  input.to_f.to_s == input
+end
+
+def number?(input)
+  integer?(input) || float?(input)
 end
 
 def operation_to_message(op)
-  case op
-  when '1'
-    'Adding'
-  when '2'
-    'Subtracting'
-  when '3'
-    'Multiplying'
-  when '4'
-    'Dividing'
-  end
+  word =  case op
+          when '1'
+            'Adding'
+          when '2'
+            'Subtracting'
+          when '3'
+            'Multiplying'
+          when '4'
+            'Dividing'
+          end
+  word
 end
 
-prompt("Welcome to calculator! Enter your name:")
+prompt(messages('welcome', LANGUAGE))
 
 name = ''
 loop do
   name = Kernel.gets().chomp()
 
   if name.empty?
-    prompt "Make sure to use a valid name."
+    prompt(messages('valid_name', LANGUAGE))
   else
     break
   end
@@ -45,25 +65,25 @@ prompt "Hi #{name}"
 loop do # main loop
   number1 = ''
   loop do
-    prompt "What's the first number?"
+    prompt(MESSAGES['first_number'])
     number1 = Kernel.gets.chomp
 
-    if valid_number?(number1)
+    if number?(number1)
       break
     else
-      prompt "Hmm... that doesn't look like a valid number"
+      prompt(MESSAGES['error_number'])
     end
   end
 
   number2 = ''
   loop do
-    prompt "What's the second number?"
+    prompt(MESSAGES['second_number'])
     number2 = Kernel.gets.chomp
 
-    if valid_number?(number2)
+    if number?(number2)
       break
     else
-      prompt "Hmm... that's not a valid number"
+      prompt(MESSAGES['error_number'])
     end
   end
 
@@ -84,7 +104,7 @@ loop do # main loop
     if %w(1 2 3 4).include?(operator)
       break
     else
-      prompt "Must choose 1, 2, 3, or 4"
+      prompt(MESSAGES['choose_operator'])
     end
   end
 
@@ -103,9 +123,9 @@ loop do # main loop
 
   prompt "The result is #{result}"
 
-  prompt "Do you want to perform another calculation? (Y to calculate again)"
+  prompt(MESSAGES['calculate_again'])
   answer = Kernel.gets.chomp
   break unless answer.downcase.start_with?('y')
 end
 
-prompt "Thank you for using this calculator, #{name}. Good bye"
+prompt(MESSAGES['thank_you'])
