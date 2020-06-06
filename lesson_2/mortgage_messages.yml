@@ -1,0 +1,11 @@
+# mortgage_messages.yml
+
+welcome: 'Welcome to the mortgage calculator.'
+valid_name: 'Please ensure you enter a valid name.'
+amount: 'How much (in £GBP) would you like to borrow?'
+error_number: 'Must enter a valid number.'
+interest_amount: What is the interest rate?'
+interest_example: '(Example: 5 for 5% or 2.5 for 2.5%)'
+loan_duration: 'Please enter the loan duration, in years'
+calculate_again: 'Would you like to calculate another mortgage loan?'
+thank_you: 'Thank you for using this mortgage calculator service. Good day'
